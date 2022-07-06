@@ -14,8 +14,8 @@ pub fn process_instruction(
 ) -> ProgramResult {
     let instruction = GameInstruction::try_from_slice(input)?;
     match instruction {
-        GameInstruction::Mint => {
-            process_mint(program_id, accounts)
+        GameInstruction::Mint(args) => {
+            process_mint(program_id, accounts,args.title,args.uri)
         }
     }
 }

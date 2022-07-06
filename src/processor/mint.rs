@@ -16,6 +16,8 @@ use crate::{utils::*};
 pub fn process_mint(
     _program_id: &Pubkey,
     accounts: &[AccountInfo],
+    title: Option<String>,
+    uri: String
 ) -> ProgramResult {
     let account_info_iter = &mut accounts.iter();
     let authority_info = next_account_info(account_info_iter)?;
@@ -104,9 +106,8 @@ pub fn process_mint(
             share: 100,
         },
     ];
-    let title = String::from("my_title");
-    let symbol = String::from("my_symbol");
-    let uri = String::from("https://arweave.net/y5e5DJsiwH0s_ayfMwYk-SnrZtVZzHLQDSTZ5dNRUHA");
+    let title = if title.is_none() {String::from("Violent squirrel")}else{title?};
+    let symbol = String::from("VS");
     invoke(
         &create_metadata_accounts_v2(
             *metadata_program_info.key,
@@ -146,7 +147,7 @@ pub fn process_mint(
             *signer_info.key,
             *metadata_info.key,
             *signer_info.key,
-            Some(0),
+            Some(1),
         ),
         &[
             edition_info.clone(),

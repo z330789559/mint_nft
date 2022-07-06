@@ -106,7 +106,7 @@ pub fn process_mint(
             share: 100,
         },
     ];
-    let title = if title.is_none() {String::from("Violent squirrel")}else{title?};
+    let title = if title.is_none() {String::from("Violent squirrel")}else{title.unwrap()};
     let symbol = String::from("VS");
     invoke(
         &create_metadata_accounts_v2(
